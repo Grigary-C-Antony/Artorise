@@ -1,7 +1,12 @@
 const jwt = require("jsonwebtoken");
 
 const verifyToken = (req, res, next) => {
-  const excludedRoutes = ["/auth/login", "/auth/signup", "/check"]; // Add excluded routes here
+  const excludedRoutes = [
+    "/auth/login",
+    "/auth/signup",
+    "/check",
+    "/apiforimage",
+  ]; // Add excluded routes here
 
   if (excludedRoutes.includes(req.path)) {
     // If the route is excluded, move to the next middleware

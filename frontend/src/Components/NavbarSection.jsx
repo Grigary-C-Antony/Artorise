@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Logo from "../assets/LOGO.png";
 import { AiFillPlusCircle } from "react-icons/ai";
 import AddModal from "./AddModal";
@@ -7,15 +7,48 @@ import ProfileModal from "./ProfileModal";
 function Navbar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
+  const [formData, setFormData] = useState({});
+  const [disabled, setDisabled] = useState(false);
+  const [myimage, setImage] = useState("");
   const closeHandler = () => {
     setIsModalOpen(false);
   };
   const profileCloseHandler = () => {
     setIsProfileModalOpen(false);
   };
+  const handleData = (formDataModal) => {
+    setFormData(formDataModal);
+  };
+
+  const imageLoaderApi = async () => {
+    setDisabled(true);
+    try {
+      const response = await fetch("http://localhost:5000/apiforimage", {
+        method: "GET",
+        body: formData,
+      });
+      const jsonData = await response.json();
+
+      setImage(jsonData.output);
+      setDisabled(false);
+      console.log(jsonData);
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      setDisabled(false);
+    }
+  };
+
   return (
     <>
-      {isModalOpen && AddModal(closeHandler)}
+      {isModalOpen &&
+        AddModal(
+          closeHandler,
+          handleData,
+          formData,
+          imageLoaderApi,
+          disabled,
+          myimage
+        )}
       {isProfileModalOpen && ProfileModal(profileCloseHandler)}
 
       <div
