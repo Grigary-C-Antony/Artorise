@@ -41,12 +41,12 @@ app.use("/artwork", artRoutes);
 app.get("/check", (req, res) => {
   res.send("working");
 });
-app.get("/apiforimage", async (req, res) => {
+app.post("/apiforimage", async (req, res) => {
   const output = await replicate.run(
     "stability-ai/stable-diffusion:ac732df83cea7fff18b8472768c88ad041fa750ff7682a21affe81863cbe77e4",
     {
       input: {
-        prompt: "a vision of paradise. unreal engine",
+        prompt: req.body.desc,
       },
     }
   );

@@ -21,11 +21,15 @@ function Navbar() {
   };
 
   const imageLoaderApi = async () => {
+    console.log(formData);
     setDisabled(true);
     try {
       const response = await fetch("http://localhost:5000/apiforimage", {
-        method: "GET",
-        body: formData,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
       });
       const jsonData = await response.json();
 
