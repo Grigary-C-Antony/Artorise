@@ -6,6 +6,7 @@ const cors = require("cors");
 const Replicate = require("replicate");
 const path = require("path");
 const crypto = require("crypto");
+const fs = require("fs");
 
 const { verifyToken } = require("./controllers/jwtHandler");
 const userRoutes = require("./routes/users");
@@ -53,7 +54,21 @@ app.use(express.static(path.resolve(__dirname, "dist")));
 app.get("/", (req, res) => {
   res.sendFile(path.resolve(__dirname, "dist/index.html"));
 });
+app.get("/getdata", (req, res) => {
+  fs.readFile("../backend/server.json", "utf8", (err, data) => {
+    if (err) {
+      console.error("Error reading file:", err);
+      res.status(500).json({ error: "Internal Server Error" });
+      return;
+    }
 
+    // Parse the JSON data
+    const jsonData = JSON.parse(data);
+
+    // Send the JSON data as the response
+    res.json(jsonData);
+  });
+});
 app.use(verifyToken); // Apply the JWT verification middleware to all routes
 
 // routes

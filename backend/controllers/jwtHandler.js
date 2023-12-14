@@ -8,6 +8,7 @@ const verifyToken = (req, res, next) => {
     "/apiforimage",
     "/auth/temp-signup",
     "/",
+    "/getdata",
   ]; // Add excluded routes here
 
   if (excludedRoutes.includes(req.path)) {

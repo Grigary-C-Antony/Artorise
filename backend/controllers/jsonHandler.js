@@ -1,6 +1,6 @@
 const fs = require("fs");
 
-const jsonUpdater = (uuid, imgdata, desc, title) => {
+const jsonUpdater = (uuid, image_url, description, title) => {
   const filePath = "../backend/server.json";
   fs.readFile(filePath, "utf8", (err, data) => {
     if (err) {
@@ -8,7 +8,7 @@ const jsonUpdater = (uuid, imgdata, desc, title) => {
       return;
     }
     const jsonData = JSON.parse(data);
-    jsonData.push({ uuid, imgdata, desc, title });
+    jsonData.push({ uuid, image_url, description, title });
     const updatedJsonData = JSON.stringify(jsonData, null, 2);
 
     fs.writeFile(filePath, updatedJsonData, "utf8", (err) => {
