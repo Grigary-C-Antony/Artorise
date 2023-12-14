@@ -19,17 +19,7 @@ dotenv.config();
 
 const app = express();
 app.use(bodyParser.json());
-app.use(
-  cors({
-    credentials: true,
-    origin: [
-      "http://localhost:5173/",
-      "https://artorise.vercel.app/",
-      "http://localhost:3003",
-      "http://localhost:3002",
-    ],
-  })
-);
+app.use(cors());
 
 // Connect to MongoDB
 
