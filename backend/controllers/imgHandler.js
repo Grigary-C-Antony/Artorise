@@ -38,8 +38,7 @@ const downloadImage = async (url, localPath) => {
     throw error;
   }
 };
-const imageUploader = async (url) => {
-  let uuid = crypto.randomUUID();
+const imageUploader = async (url, uuid) => {
   let result = await cloudinary.v2.uploader.upload(
     url,
     { public_id: uuid, folder: "generated_images" }

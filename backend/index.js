@@ -5,6 +5,7 @@ const dotenv = require("dotenv");
 const cors = require("cors");
 const Replicate = require("replicate");
 const path = require("path");
+const crypto = require("crypto");
 
 const { verifyToken } = require("./controllers/jwtHandler");
 const userRoutes = require("./routes/users");
@@ -12,6 +13,7 @@ const authRoutes = require("./routes/auth");
 const artRoutes = require("./routes/artwork");
 const { downloadImage, imageUploader } = require("./controllers/imgHandler");
 const cookieParser = require("cookie-parser");
+const { jsonUpdater } = require("./controllers/jsonHandler");
 const replicate = new Replicate({
   auth: "r8_TDtyrK0rwOmzbqm68k7cA1ZiDISB0TP0u69uZ",
 });
@@ -25,6 +27,7 @@ app.use(
   cors({
     credentials: true,
     origin: [
+      "http://localhost:5174/",
       "http://localhost:5173/",
       "https://artorise.vercel.app/",
       "https://artorise-frontend.onrender.com/",
@@ -32,6 +35,7 @@ app.use(
       "http://localhost:3002",
     ],
   })
+  // cors()
 );
 
 // Connect to MongoDB
@@ -71,9 +75,11 @@ app.post("/apiforimage", async (req, res) => {
       },
     }
   );
-  await imageUploader(output[0]).then((imgdata) =>
-    res.json({ output: imgdata.url })
-  );
+  let uuid = crypto.randomUUID();
+  await imageUploader(output[0], uuid).then(async (imgdata) => {
+    await jsonUpdater(uuid, imgdata.url, req.body.desc, req.body.title);
+    res.json({ output: imgdata.url });
+  });
 
   // let uuid = crypto.randomUUID();
   // await downloadImage(output[0], "img/" + uuid + ".png")
