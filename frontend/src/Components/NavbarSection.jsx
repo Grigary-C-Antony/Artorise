@@ -124,7 +124,7 @@ function Navbar() {
 
       <div
         style={{ backgroundColor: "#3F4048" }}
-        className="h-1/3 flex justify-between p-3"
+        className="h-full flex justify-between p-3"
       >
         <div>
           <img src={Logo} className="h-full" />
@@ -137,7 +137,7 @@ function Navbar() {
             onClick={() => setIsModalOpen(!isModalOpen)}
           />
 
-          <div className="mx-5 bg-white rounded-full h-10 w-10 bg-gradient-to-b from-rose-400 via-red-300 to-lime-200 ">
+          {/* <div className="mx-5 bg-white rounded-full h-10 w-10 bg-gradient-to-b from-rose-400 via-red-300 to-lime-200 ">
             <img
               src={`https://api.multiavatar.com/${
                 isProfileAvailable ? isProfileAvailable + ".png" : "NOUSER.png"
@@ -150,7 +150,7 @@ function Navbar() {
                   : setIsLoginModalOpen(!isLoginModalOpen)
               }
             />
-          </div>
+          </div> */}
         </div>
       </div>
     </>

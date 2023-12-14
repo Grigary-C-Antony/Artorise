@@ -6,10 +6,10 @@ function App() {
   return (
     <div style={{ backgroundColor: "#33343D" }}>
       <div className="flex flex-col h-screen w-auto ">
-        <div className="h-1/4">
+        <div className="h-16">
           <TopSection />
         </div>
-        <div className="h-3/4">
+        <div className="h-5/6">
           <ContentSection />
         </div>
       </div>
