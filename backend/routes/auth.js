@@ -12,6 +12,7 @@ const otpMap = new Map();
 // Login user and generate JWT
 router.post("/login", async (req, res) => {
   const { username, password } = req.body;
+  console.log("hit");
 
   try {
     const user = await User.findOne({ username, deletedAt: null });
@@ -27,7 +28,8 @@ router.post("/login", async (req, res) => {
     const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET, {
       expiresIn: process.env.JWT_EXPIRE, // Token expiration time
     });
-
+    res.cookie("username", username);
+    res.cookie("token", token);
     res.json({ token });
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -79,6 +81,29 @@ router.post("/verify-otp", async (req, res) => {
       expiresIn: process.env.JWT_EXPIRE,
     });
 
+    res.json({ token });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
+router.post("/temp-signup", async (req, res) => {
+  const { username, password } = req.body;
+
+  try {
+    const existingUser = await User.findOne({ username });
+    if (existingUser) {
+      return res.status(409).json({ message: "Username already exists" });
+    }
+    const saltRounds = 10;
+    const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const newUser = new User({ username, password: hashedPassword });
+    const savedUser = await newUser.save();
+
+    const token = jwt.sign({ userId: savedUser._id }, process.env.JWT_SECRET, {
+      expiresIn: process.env.JWT_EXPIRE,
+    });
+    res.cookie(username, token);
     res.json({ token });
   } catch (error) {
     res.status(500).json({ error: error.message });

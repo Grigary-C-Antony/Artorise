@@ -10,6 +10,7 @@ const userRoutes = require("./routes/users");
 const authRoutes = require("./routes/auth");
 const artRoutes = require("./routes/artwork");
 const { downloadImage, imageUploader } = require("./controllers/imgHandler");
+const cookieParser = require("cookie-parser");
 const replicate = new Replicate({
   auth: "r8_TDtyrK0rwOmzbqm68k7cA1ZiDISB0TP0u69uZ",
 });
@@ -18,7 +19,17 @@ dotenv.config();
 
 const app = express();
 app.use(bodyParser.json());
-app.use(cors());
+app.use(
+  cors({
+    credentials: true,
+    origin: [
+      "http://localhost:5173/",
+      "https://artorise.vercel.app/",
+      "http://localhost:3003",
+      "http://localhost:3002",
+    ],
+  })
+);
 
 // Connect to MongoDB
 
@@ -26,7 +37,7 @@ mongoose.connect(process.env.MONGO_URI, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });
-
+app.use(cookieParser());
 // Middleware for verifying JWT
 
 app.use(verifyToken); // Apply the JWT verification middleware to all routes

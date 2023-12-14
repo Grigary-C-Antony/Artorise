@@ -1,7 +1,7 @@
 import React from "react";
 import { AiFillCloseCircle } from "react-icons/ai";
 
-function ProfileModal(profileCloseHandler) {
+function ProfileModal(profileCloseHandler, isProfileAvailable) {
   return (
     <div className=" fixed top-0 bottom-0 w-full h-full z-50 bg-[#00000099] flex items-center justify-center">
       <div className="relative bg-[#3F4048] w-2/5 h-5/6 rounded-lg flex flex-wrap flex-col justify-center items-center">
@@ -21,7 +21,7 @@ function ProfileModal(profileCloseHandler) {
           />
         </div>
         <div className="text-white text-2xl  font-montserrat-regular my-10">
-          @asdadlakslamslj
+          {isProfileAvailable}
         </div>
         <div
           onClick={profileCloseHandler}

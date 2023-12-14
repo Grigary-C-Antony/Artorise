@@ -62,7 +62,7 @@ function ContentSection() {
                 src={item?.image_url}
               ></img>
               <div className="absolute bottom-0 rounded-b-lg h-1/6 w-full z-40 flex justify-between items-center opacity-80 bg-black">
-                <div className="mx-3 bg-white rounded-full h-4/6 bg-gradient-to-b from-rose-400 via-red-300 to-lime-200 ">
+                {/* <div className="mx-3 bg-white rounded-full h-4/6 bg-gradient-to-b from-rose-400 via-red-300 to-lime-200 ">
                   <img
                     src={
                       "https://api.multiavatar.com/" +
@@ -72,7 +72,7 @@ function ContentSection() {
                     className="rounded-full h-full w-full "
                     style={{ padding: 1 }}
                   />
-                </div>
+                </div> */}
                 <div className="flex items-center mx-3">
                   <AiFillHeart
                     size={20}
