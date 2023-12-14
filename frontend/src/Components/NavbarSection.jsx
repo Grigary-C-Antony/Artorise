@@ -69,13 +69,16 @@ function Navbar() {
       console.log(formData);
       setDisabled(true);
       try {
-        const response = await fetch("http://localhost:5000/apiforimage", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify(formData),
-        });
+        const response = await fetch(
+          "https://artorise.onrender.com/apiforimage",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify(formData),
+          }
+        );
         const jsonData = await response.json();
 
         setImage(jsonData.output);
