@@ -36,10 +36,10 @@ app.use(
 
 // Connect to MongoDB
 
-mongoose.connect(process.env.MONGO_URI, {
-  useNewUrlParser: true,
-  useUnifiedTopology: true,
-});
+// mongoose.connect(process.env.MONGO_URI, {
+//   useNewUrlParser: true,
+//   useUnifiedTopology: true,
+// });
 app.use(cookieParser());
 // Middleware for verifying JWT
 // Serve Vite build as static files
@@ -54,7 +54,7 @@ app.use(verifyToken); // Apply the JWT verification middleware to all routes
 
 // routes
 app.use("/admin/users", userRoutes);
-app.use("/auth", authRoutes);
+// app.use("/auth", authRoutes);
 app.use("/artwork", artRoutes);
 
 // routes
