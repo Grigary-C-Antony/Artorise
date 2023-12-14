@@ -4,6 +4,7 @@ const mongoose = require("mongoose");
 const dotenv = require("dotenv");
 const cors = require("cors");
 const Replicate = require("replicate");
+const path = require("path");
 
 const { verifyToken } = require("./controllers/jwtHandler");
 const userRoutes = require("./routes/users");
@@ -19,6 +20,7 @@ dotenv.config();
 
 const app = express();
 app.use(bodyParser.json());
+
 app.use(
   cors({
     credentials: true,
@@ -40,6 +42,13 @@ mongoose.connect(process.env.MONGO_URI, {
 });
 app.use(cookieParser());
 // Middleware for verifying JWT
+// Serve Vite build as static files
+app.use(express.static(path.resolve(__dirname, "dist")));
+
+// Catch-all route to serve index.html
+app.get("/", (req, res) => {
+  res.sendFile(path.resolve(__dirname, "dist/index.html"));
+});
 
 app.use(verifyToken); // Apply the JWT verification middleware to all routes
 
