@@ -4,7 +4,7 @@ import { AiFillCloseCircle } from "react-icons/ai";
 function ProfileModal(profileCloseHandler, isProfileAvailable) {
   return (
     <div className=" fixed top-0 bottom-0 w-full h-full z-50 bg-[#00000099] flex items-center justify-center">
-      <div className="relative bg-[#3F4048] w-2/5 h-5/6 rounded-lg flex flex-wrap flex-col justify-center items-center">
+      <div className="relative bg-[#fff] w-2/5 h-5/6 rounded-lg flex flex-wrap flex-col justify-center items-center">
         <AiFillCloseCircle
           onClick={profileCloseHandler}
           className="absolute top-5 right-5"
